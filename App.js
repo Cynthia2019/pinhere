@@ -8,10 +8,7 @@ import { AppLoading } from 'expo';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import * as firebase from "firebase/app";
-import firebaseConfig from './config'
 
-firebase.initializeApp(firebaseConfig)
 
 const AppNaviagtor = createDrawerNavigator({
   Home: MainPage, 

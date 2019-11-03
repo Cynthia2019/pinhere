@@ -5,7 +5,12 @@ import { Input, Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Google from 'expo-google-app-auth'
-import * as firebase from "firebase/app";
+//import * as firebase from "firebase/app";
+import * as firebase from '../../config'
+import "firebase/auth";
+import "firebase/firestore";
+
+//firebase.initializeApp(firebaseConfig)
 
 export default class LoginPage extends Component{
     state={
@@ -44,7 +49,7 @@ export default class LoginPage extends Component{
     onSignIn = googleUser => {
         console.log('Google Auth Response', googleUser);
         // We need to register an Observer on Firebase Auth to make sure auth is initialized.
-        var unsubscribe = firebase.auth().onAuthStateChanged(
+        var unsubscribe = firebase.app.auth().onAuthStateChanged(
         function (firebaseUser) {
          console.log('unsubscribe')
           unsubscribe();
@@ -63,7 +68,7 @@ export default class LoginPage extends Component{
                 this.props.navigation.navigate('Home')
                 firebase
                     .database()
-                    .ref('/users/'+ result.user.uid)
+                    .ref('users/'+ result.user.uid)
                     .set({
                         gmail: result.user.email, 
                         picture: result.additionalUserInfo.profile.picture,
